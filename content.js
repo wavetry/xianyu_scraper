@@ -167,12 +167,11 @@ async function downloadAsZip(images, description) {
   progressDiv.innerText = '正在准备下载...';
 
   const zip = new JSZip();
-  const folder = zip.folder("xianyu_images");
 
   try {
-    // 添加描述文件
+    // 添加描述文件到 zip 根目录
     if (description) {
-      folder.file("商品描述.txt", description);
+      zip.file("商品描述.txt", description);
     }
 
     let successCount = 0;
@@ -182,7 +181,7 @@ async function downloadAsZip(images, description) {
         if (!response.ok) throw new Error('Network error');
         const blob = await response.blob();
         const extension = url.toLowerCase().endsWith('.png') ? 'png' : 'jpg';
-        folder.file(`image_${i + 1}.${extension}`, blob);
+        zip.file(`image_${i + 1}.${extension}`, blob);
         successCount++;
         progressDiv.innerText = `正在下载 (${successCount}/${images.length})...`;
       } catch (e) {
