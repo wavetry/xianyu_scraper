@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "闲鱼助手 - 抓取描述与图片",
+  "version": "1.2",
+  "description": "在闲鱼商品详情页抓取描述和打包下载商品原图",
+  "permissions": [
+    "downloads",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://www.goofish.com/*",
+    "https://img.alicdn.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.goofish.com/item*"],
+      "js": ["jszip.min.js", "content.js"]
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}
